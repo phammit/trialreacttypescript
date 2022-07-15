@@ -4,14 +4,15 @@ import Image from 'next/image'
 //useQuery used for graphql
 import { useQuery } from '@apollo/client';
 
+import withApollo from '../lib/nextapollo';
 import QUERY_TESTUSER from './testUserQuery.graphql';
 import QUERY_COUNTRIES from './queryCountries.graphql';
 
 import styles from '../styles/Home.module.css';
+import Link from 'next/link';
 
 
-
-const Home: NextPage = () => {
+const Home: NextPage = (props) => {
   const { data, loading, error } = useQuery(QUERY_TESTUSER);
 
   //check for errors
@@ -33,7 +34,9 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-      <h1>Please Login Here </h1>
+      <Link href="/login">
+        <h1>Please Login Here </h1>
+      </Link>
       <div></div>
       </div>
 
@@ -51,4 +54,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default withApollo({ ssr: true})(Home);
