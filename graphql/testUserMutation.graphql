@@ -1,0 +1,11 @@
+mutation(
+    $name: String!
+    $address: String!
+) {
+    addUser(name: $name, address: $address) {
+        _id
+        name
+        address
+    }
+}
+

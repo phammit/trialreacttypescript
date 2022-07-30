@@ -2,18 +2,23 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 //useQuery used for graphql
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client'; //state management library for remote and local data with graphql
 
 import withApollo from '../lib/nextapollo';
 import QUERY_TESTUSER from './testUserQuery.graphql';
 import QUERY_COUNTRIES from './queryCountries.graphql';
+import MUTATION_TESTUSER from './api/graphql/testMutation.graphql';
 
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 
+import AddUser from '../components/AddUser';
+
 
 const Home: NextPage = (props) => {
+  //const data = [];
   const { data, loading, error } = useQuery(QUERY_TESTUSER);
+  //const { dataA,  } = useMutation(MUTATION_TESTUSER);
 
   //check for errors
   if (error) {
@@ -45,13 +50,16 @@ const Home: NextPage = (props) => {
       {loading && <p>loading...</p>}
       <div>
         {/* had error without ? ...could not read property 'countries' of undefined*/}
-        {data?.testUser?.map((user: { name: string, address: string }) => (
-          <div key={user.name}>{user.name}: {user.address}</div>
+        {data?.testUser?.map((user: { name: string, address: string, _id: string }) => (
+          <div key={user.name}>{user.name}: {user.address} {user._id}</div>
         ))}
       </div>
+
+      <AddUser />
 
     </div>
   )
 }
 
-export default withApollo({ ssr: true})(Home);
+export default Home;
+//xport default withApollo({ ssr: true})(Home);

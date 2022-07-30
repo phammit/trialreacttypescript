@@ -18,6 +18,8 @@ export async function getStaticApolloClient() {
 }
 */
 
+
+//https://www.apollographql.com/blog/apollo-client/next-js/next-js-getting-started/  ...goes over Static/SSR/client side grapql
 //connect our to api @  
 //alternative uri: http://localhost:3001/graphql    https://countries.trevorblades.com
 const client = new ApolloClient({
@@ -26,12 +28,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+//ApolloProvider is a React component for client-side graphql data retrieval after page renders
 //connect client to our app with ApolloProvider.. wrapping our app inside an ApolloProvider
 function MyApp({ Component, pageProps }: AppProps) {
   return ( 
-    //<ApolloProvider client={client}>
+    <ApolloProvider client={client}>
       <Component {...pageProps} />
-    //</ApolloProvider>
+    </ApolloProvider>
   );
 }
 

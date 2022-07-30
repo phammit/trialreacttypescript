@@ -1,5 +1,6 @@
 query {
     testUser {
+        _id
         name
         address
     }
